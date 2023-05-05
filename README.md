@@ -23,7 +23,11 @@ This app requires the following permissions:
 - Query app packages
 
 ## Running the Astronaut App
-Open Android Studio in your development machine and clone the project.
+Open Android Studio in your development machine and clone the project.  
+
+**Important !!**  
+***Please add your facebook app id and client id at /AstronautsApp/app/src/main/res/values/strings.xml***.  
+You can generate it from [Facebook Developer Page](https://developers.facebook.com/docs/development/create-an-app/)
 
 ### Android Studio
 * Connect your mobile with your development machine or configure emulator in Android Studio
