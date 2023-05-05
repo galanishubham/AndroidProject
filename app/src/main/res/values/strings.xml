@@ -5,4 +5,15 @@
     <string name="loading">loading</string>
     <string name="retry">Retry</string>
     <string name="flights">Flights</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
+    <string name="login_text">Login</string>
+    <string name="login_with_google">Login with Google</string>
+
+    <string name="facebook_app_id">517131840609926</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">a1b93d507f943e5fb90ab606a8ea1e09</string>
+    <string name="logout_button">Logout Button</string>
+    <string name="login_with_biometric">use touch ID to login</string>
+
+
 </resources>

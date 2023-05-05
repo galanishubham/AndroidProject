@@ -1,5 +1,7 @@
 package com.example.astronautsapp.data
 
+import android.content.Context
+import com.example.astronautsapp.data.room.AstronautsRoomDatabase
 import com.example.astronautsapp.network.AstronautsAPIService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,7 +11,7 @@ interface AppContainer {
     val astronautsRepository: AstronautsRepository
 }
 
-class DefaultAppContainer: AppContainer {
+class DefaultAppContainer(private val context: Context): AppContainer {
 
     private val BASE_URL = "https://ll.thespacedevs.com/2.2.0/"
 
@@ -24,8 +26,11 @@ class DefaultAppContainer: AppContainer {
         retrofit.create(AstronautsAPIService::class.java)
     }
 
+
+    private val astronautDatabase = AstronautsRoomDatabase.getDatabase(context)
+
     // DI implementation for Astronaut Repository
     override val astronautsRepository: AstronautsRepository by lazy {
-        DefaultAstronautsRepository(retrofitService)
+        DefaultAstronautsRepository(retrofitService, astronautDatabase, context)
     }
 }

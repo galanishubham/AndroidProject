@@ -1,6 +1,5 @@
 package com.example.astronautsapp.ui.screens.astronauts
 
-import android.os.Bundle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -9,12 +8,14 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -26,10 +27,20 @@ import com.example.astronautsapp.ui.screens.loading.LoadingScreen
 import com.example.astronautsapp.ui.theme.AstronautsAppTheme
 
 @Composable
-fun HomeScreen(astronautsListUiState: AstronautsListUiState, navController: NavController, retryAction: () -> Unit) {
+fun HomeScreen(navController: NavController) {
+    val astronautsViewModel: AstronautsViewModel =
+        viewModel(factory = AstronautsViewModel.Factory)
+
+    val astronautsListUiState = astronautsViewModel.astronautsListUiState
+
+    val retryAction = astronautsViewModel::getAstronauts
+
     when(astronautsListUiState) {
         is AstronautsListUiState.Loading -> LoadingScreen()
         is AstronautsListUiState.Success -> AstronautsListScreen(astronautsListUiState.astronauts, navController)
+        is AstronautsListUiState.SignInRequired -> LaunchedEffect(Unit) {
+            navController.navigate(Screens.LoginScreen.route)
+        }
         else -> ErrorScreen(retryAction)
     }
 }
@@ -37,6 +48,7 @@ fun HomeScreen(astronautsListUiState: AstronautsListUiState, navController: NavC
 
 @Composable
 fun AstronautsListScreen(astronauts: List<Astronaut>, navController: NavController, modifier: Modifier = Modifier) {
+
     LazyVerticalGrid(
         GridCells.Fixed(1),
         modifier = modifier.fillMaxSize(),
@@ -55,7 +67,9 @@ fun AstronautCard(astronaut: Astronaut, navController: NavController, modifier: 
         .padding(bottom = 16.dp)
         .clickable {
             navController.navigate(
-                "${Screens.AstronautDetailsScreen.route}/${astronaut.id}" )}
+                "${Screens.AstronautDetailsScreen.route}/${astronaut.id}"
+            )
+        }
             ) {
                 Row(
                     modifier = modifier
@@ -88,7 +102,7 @@ fun AstronautCard(astronaut: Astronaut, navController: NavController, modifier: 
 @Composable
 fun AstronautListPreview() {
     AstronautsAppTheme {
-         val astronaut = List(10) { Astronaut("$it".toInt(), 23, "Name", "ImgUrl") }
+        val astronaut = List(10) { Astronaut("$it".toInt(), 23, "Name", "ImgUrl") }
         val navController = rememberNavController()
 
         AstronautsListScreen(astronaut, navController)

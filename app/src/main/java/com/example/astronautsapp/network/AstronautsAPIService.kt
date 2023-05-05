@@ -4,12 +4,13 @@ import com.example.astronautsapp.network.model.astronaut_details.AstronautDetail
 import com.example.astronautsapp.network.responses.AstronautsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface AstronautsAPIService {
+    // get list of astronauts
     @GET("astronaut")
     suspend fun getAstronauts(): AstronautsResponse
 
+    // astronaut detail api
     @GET("astronaut/{id}")
     suspend fun getAstronautDetails(
         @Path("id") id: Int

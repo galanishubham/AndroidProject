@@ -8,6 +8,7 @@ class AstronautDetailsDataMapper: DomainMapper<AstronautDetailsApiModel, Astrona
     override fun mapToDomainModel(data: AstronautDetailsApiModel): AstronautDetails {
 
         return AstronautDetails(
+            id = data.id,
             name = data.name,
             profileImg = data.profile_image,
             flights = mapFlights(data.flights)
@@ -15,7 +16,7 @@ class AstronautDetailsDataMapper: DomainMapper<AstronautDetailsApiModel, Astrona
     }
 
     private fun mapFlight(flight: FlightData): Flight {
-        return Flight( name = flight.name )
+        return Flight( flightName = flight.name, flightId = flight.id )
     }
 
     private fun mapFlights(flights: List<FlightData>): List<Flight> {

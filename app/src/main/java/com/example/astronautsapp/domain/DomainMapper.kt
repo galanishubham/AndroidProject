@@ -5,6 +5,6 @@ interface DomainMapper <NetworkModel, DomainModel>{
     // map Network data to domain model
     fun mapToDomainModel(data: NetworkModel): DomainModel
 
-    // if need to send data to server
+    // if need to send data back to server
     // fun mapFromDomainModel(domainModel: DomainModel): T
 }
