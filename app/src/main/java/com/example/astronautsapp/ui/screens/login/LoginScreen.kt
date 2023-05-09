@@ -63,6 +63,7 @@ fun LoginCard(navController: NavHostController, viewModel: LoginViewModel,modifi
                 AndroidView({context -> LoginButton(context)
                     .apply {
                         val callbackManager = CallbackManager.Factory.create()
+
                             setPermissions("email", "public_profile")
 
                             registerCallback(

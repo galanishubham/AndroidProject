@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,9 +37,6 @@ fun HomeScreen(navController: NavController) {
     when(astronautsListUiState) {
         is AstronautsListUiState.Loading -> LoadingScreen()
         is AstronautsListUiState.Success -> AstronautsListScreen(astronautsListUiState.astronauts, navController)
-        is AstronautsListUiState.SignInRequired -> LaunchedEffect(Unit) {
-            navController.navigate(Screens.LoginScreen.route)
-        }
         else -> ErrorScreen(retryAction)
     }
 }

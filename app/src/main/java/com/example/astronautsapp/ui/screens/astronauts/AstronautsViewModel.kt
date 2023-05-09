@@ -35,14 +35,7 @@ class AstronautsViewModel(private val repository: AstronautsRepository): ViewMod
         private set
 
     init {
-        val accessToken = AccessToken.getCurrentAccessToken()
-        val isLoggedIn = accessToken != null && !accessToken.isExpired
-
-        if(isLoggedIn) {
-            getAstronauts()
-        } else {
-            astronautsListUiState = AstronautsListUiState.SignInRequired
-        }
+        getAstronauts()
     }
 
    fun getAstronauts() {
