@@ -7,6 +7,7 @@
     <string name="flights">Flights</string>
     <string name="title_activity_login_screen">LoginScreen</string>
     <string name="login_text">Login</string>
+    <string name="login_text_description">Find all astronauts in one place by login</string>
     <string name="login_with_google">Login with Google</string>
 
     <string name="facebook_app_id">517131840609926</string>
